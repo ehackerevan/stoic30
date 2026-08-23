@@ -1,0 +1,50 @@
+。</p></div></div>
+   <div class="card"><h2>每日練習紀錄</h2><div id="dailyList"><p>尚無紀錄。</p></div></div>
+  </section>
+
+  <section id="principles" class="screen">
+   <div class="card"><h2>我的斯多葛原則</h2>
+    <div class="principle"><b>控制二分法</b>我能控制我的行動，不能控制別人的感受。</div><div class="principle"><b>感情</b>我希望對方喜歡我，但我不要求對方必須喜歡我。</div><div class="principle"><b>不確定性</b>現在不知道答案，也可以。</div><div class="principle"><b>焦慮</b>焦慮是一種感受，不是行動指令。</div><div class="principle"><b>關係</b>看趨勢，不解讀單點。</div><div class="principle"><b>自我價值</b>一段關係的結果，不是對我價值的評分。</div><div class="principle"><b>行動</b>我負責真誠地靠近；結果交給對方與時間。</div>
+   </div>
+  </section>
+
+  <section id="settings" class="screen">
+   <div class="card"><h2>設定與資料</h2>
+    <div class="settingsRow"><div class="label">30 天計畫開始日</div><div class="desc">更換裝置或想從特定日期開始時可以調整。</div><input type="date" id="startDateInput"><div style="height:8px"></div><button class="btn secondary small" onclick="saveStartDate()">儲存開始日</button></div>
+    <div class="settingsRow"><div class="label">備份</div><div class="desc">資料目前只存在這個瀏覽器。建議偶爾匯出完整 JSON 備份。</div><div class="row"><button class="btn ghost" onclick="exportJSON()">匯出完整備份</button><button class="btn ghost" onclick="exportCSV()">匯出焦慮 CSV</button></div></div>
+    <div class="settingsRow"><div class="label">還原備份</div><div class="desc">選擇由本網站匯出的 JSON。匯入前會先要求確認。</div><label class="fileLabel">選擇 JSON<input type="file" id="restoreFile" accept="application/json,.json" onchange="restoreJSON(event)"></label></div>
+    <div class="settingsRow"><div class="label">安裝到手機</div><div class="desc">若瀏覽器支援，可加入主畫面像 App 一樣開啟。Safari 可使用「分享 → 加入主畫面」。</div><button id="installBtn" class="btn secondary hidden" onclick="installApp()">安裝 Stoic 30</button><div id="installHint" class="muted" style="font-size:12px">如果沒有看到安裝按鈕，請使用瀏覽器的「加入主畫面」。</div></div>
+    <div class="settingsRow"><div class="label">清除資料</div><div class="desc">永久刪除這個瀏覽器內的全部 Stoic 30 紀錄。</div><button class="btn danger" onclick="resetAll()">清除全部資料</button></div>
+   </div>
+   <div class="notice">隱私：V2 預設不把你的反思、關係內容或焦慮紀錄上傳到任何伺服器。資料留在目前瀏覽器的 localStorage。</div>
+  </section>
+ </main>
+</div>
+<nav class="nav" aria-label="主要導覽">
+ <button class="active" data-screen="today" onclick="go('today',this)"><span>⌂</span>今日</button><button data-screen="progress" onclick="go('progress',this)"><span>↗</span>進度</button><button data-screen="records" onclick="go('records',this)"><span>≡</span>紀錄</button><button data-screen="principles" onclick="go('principles',this)"><span>◌</span>原則</button><button data-screen="settings" onclick="go('settings',this)"><span>⚙</span>設定</button>
+</nav>
+<div class="overlay" id="overlay" role="dialog" aria-modal="true"><div class="sheet"><div class="sheetHead"><div><div class="step" id="sheetStep"></div><div class="sheetTitle" id="sheetTitle"></div></div><button class="btn ghost small" onclick="closeSheet()">關閉</button></div><div id="sheetBody"></div></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const KEY='stoic30.v2', OLD_KEY='stoic30.v1';
+const quotes=['今天只處理你能控制的事。','不確定，不代表負面。','焦慮不是行動指令。','希望不是要求。','不要用一次互動預測整段關係。','現在不知道答案，也可以。','我可以在意結果，但不把平靜交給結果。','看趨勢，不解讀單點。','我負責行動，不負責控制他人的感受。','結果尚未出現之前，不預先承受結果。','我可以失望，但不需要提前受苦。','今天只對自己的選擇負責。','喜歡一個人，不等於必須得到一個人。','我不需要先得到答案，才能繼續今天。','我的價值不由一段關係決定。','讓時間回答暫時沒有答案的問題。','不追著情緒跑，先做下一件可控制的事。','想確認，不等於需要確認。','我可以承受不如預期。','把注意力從結果移回行動。','允許未知存在，是安全感的一部分。','今天的冷熱，不是最終判決。','我可以期待，也可以保持自己的生活。','不把猜測當成事實。','沒有答案時，也能安穩地過今天。','停止預測，開始觀察。','我的任務是真誠，不是控制。','接受現況，不等於放棄希望。','我能控制的是回應，不是結果。','我不需要知道事情最後如何，才能好好過今天。'];
+function todayKey(){return new Date().toLocaleDateString('sv-SE')}
+function baseData(){return {version:2,startDate:todayKey(),days:{},anxiety:[],settings:{}}}
+function load(){try{const v2=JSON.parse(localStorage.getItem(KEY));if(v2)return normalize(v2);const v1=JSON.parse(localStorage.getItem(OLD_KEY));if(v1){const d=normalize({...v1,version:2,settings:{}});localStorage.setItem(KEY,JSON.stringify(d));return d}}catch(e){}return baseData()}
+function normalize(d){d=d||{};d.version=2;d.startDate=d.startDate||todayKey();d.days=d.days||{};d.anxiety=Array.isArray(d.anxiety)?d.anxiety:[];d.settings=d.settings||{};d.anxiety.forEach((x,i)=>{x.id=x.id||Date.now()+i;x.date=x.date||todayKey();x.status=x.status||((x.finishedAt||x.outcome)?'done':'draft')});return d}
+let data=load(), panic=null, timerHandle=null, deferredPrompt=null;
+function save(render=true){localStorage.setItem(KEY,JSON.stringify(data));if(render)renderAll()}
+function parseDay(s){return new Date(s+'T00:00:00')}
+function dayNum(date=todayKey()){return Math.max(1,Math.min(30,Math.floor((parseDay(date)-parseDay(data.startDate))/86400000)+1))}
+function dayRecord(date=todayKey()){data.days[date] ||= {morning:null,evening:null};return data.days[date]}
+function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function toast(msg){const e=document.getElementById('toast');e.textContent=msg;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}
+function go(id,btn){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.screen===id));scrollTo({top:0,behavior:'smooth'});renderAll()}
+function completedDay(date){const d=data.days[date];return !!(d&&d.morning&&d.evening)}
+function partialDay(date){const d=data.days[date];return !!(d&&(d.morning||d.evening))&&!completedDay(date)}
+function validEvents(){return data.anxiety.filter(x=>x.status!=='deleted')}
+function doneEvents(){return validEvents().filter(x=>x.status==='done')}
+function renderAll(){
+ const dn=dayNum(), rec=dayRecord();document.getElementById('dayPill').textContent=`Day ${dn} / 30`;document.getElementById('dailyQuote').textContent='「'+quotes[dn-1]+'」';
+ const h=new Date().getHours();document.getElementById('todayEyebrow').textContent=h<12?'早安・先把今天分成可控與不可控':h>=18?'晚安・今天只檢視自己的行動':'今日提醒';
+ setStatus('morningSt
