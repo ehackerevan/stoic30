@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4f2ec">
+<meta name="description" content="個人用 30 天斯多葛安全感練習：控制二分法、焦慮介入、晚間回顧與趨勢追蹤。">
+<title>Stoic 30｜我的安全感練習</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<style>
+:root{
+ --bg:#f4f2ec;--surface:#fffefa;--surface2:#f9f8f3;--text:#20231f;--muted:#6b706a;--line:#dedfd8;
+ --accent:#4b6257;--accent2:#32483e;--accentSoft:#e4ebe6;--warm:#8b6646;--warmSoft:#f2e7dd;
+ --danger:#8b4848;--dangerSoft:#f2dfdf;--shadow:0 10px 30px rgba(35,42,37,.065);--r:20px;
+}
+*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;color:var(--text);background:var(--bg);font-family:ui-sans-serif,system-ui,-apple-system,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.5}
+button,input,textarea,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #a6b8ae;outline-offset:2px}
+.app{max-width:780px;margin:auto;min-height:100vh;padding:18px 16px 104px}.top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:5px 0 14px}.brand{font-weight:900;font-size:23px;letter-spacing:.1px}.brand small{display:block;font-weight:550;font-size:12px;color:var(--muted);margin-top:2px}.pill{border-radius:999px;padding:8px 11px;background:var(--accentSoft);color:var(--accent);font-size:12px;font-weight:850;white-space:nowrap}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);margin:12px 0}.card h2{margin:0;font-size:18px}.card h3{margin:0;font-size:16px}.card p{color:var(--muted);margin:7px 0 12px}.hero{padding:20px}.quote{font-size:19px;line-height:1.75;font-weight:650}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:900;margin-bottom:5px}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.between{justify-content:space-between}.stack{display:grid;gap:10px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.mini{border:1px solid var(--line);background:white;border-radius:15px;padding:13px}.mini .n{font-size:25px;font-weight:900;line-height:1.15}.mini .k{font-size:11px;color:var(--muted);margin-top:3px}.mini .delta{font-size:11px;margin-top:5px;font-weight:800}.good{color:var(--accent)}.bad{color:var(--danger)}.neutral{color:var(--muted)}
+.btn{border:0;border-radius:14px;padding:12px 14px;font-weight:800;background:var(--accent);color:#fff}.btn.primary{background:var(--accent2)}.btn.secondary{background:var(--accentSoft);color:var(--accent)}.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}.btn.warm{background:var(--warmSoft);color:var(--warm)}.btn.danger{background:var(--dangerSoft);color:var(--danger)}.btn.block{width:100%;padding:14px}.btn.big{font-size:17px;padding:16px}.btn.small{padding:8px 10px;font-size:12px;border-radius:10px}.linkbtn{border:0;background:none;color:var(--accent);font-weight:800;padding:0}
+.task{display:flex;gap:12px;align-items:flex-start}.taskIcon{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:var(--surface2);font-size:20px;flex:0 0 auto}.taskBody{flex:1}.taskTitle{font-weight:850}.taskMeta{font-size:12px;color:var(--muted);margin-top:2px}.check{color:var(--accent);font-weight:900}.hint{background:var(--accentSoft);color:var(--accent);padding:10px 12px;border-radius:13px;font-size:13px;margin:10px 0}.notice{background:var(--warmSoft);color:#704f35;padding:12px;border-radius:14px;font-size:13px}.divider{height:1px;background:var(--line);margin:14px 0}
+label{font-weight:800;font-size:14px;display:block;margin:14px 0 7px}input[type=text],input[type=number],input[type=date],textarea,select{width:100%;border:1px solid var(--line);border-radius:13px;background:white;padding:12px;color:var(--text)}textarea{min-height:88px;resize:vertical}.checkChoice{display:grid;gap:8px}.checkChoice label{display:flex;gap:9px;align-items:flex-start;margin:0;border:1px solid var(--line);padding:11px;border-radius:13px;background:white;font-weight:650}.checkChoice input{margin-top:3px}
+.nav{position:fixed;z-index:6;left:50%;bottom:0;transform:translateX(-50%);width:min(780px,100%);display:grid;grid-template-columns:repeat(5,1fr);background:rgba(255,254,250,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:7px 7px calc(8px + env(safe-area-inset-bottom))}.nav button{border:0;background:none;border-radius:12px;padding:8px 2px;color:var(--muted);font-size:10px;font-weight:800;line-height:1.25}.nav button span{display:block;font-size:18px;margin-bottom:2px}.nav button.active{background:var(--accentSoft);color:var(--accent)}.screen{display:none}.screen.active{display:block}
+.progressTrack{height:10px;border-radius:999px;background:#e8e6df;overflow:hidden}.progressTrack span{display:block;height:100%;background:var(--accent);border-radius:inherit}.weekline{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px}.dotDay{min-width:0;text-align:center}.dot{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;margin:auto;background:#eceae3;color:var(--muted);font-size:10px;font-weight:850}.dot.done{background:var(--accent);color:#fff}.dot.partial{background:var(--accentSoft);color:var(--accent)}.dotDay small{display:block;font-size:9px;color:var(--muted);margin-top:4px}
+.chart{height:170px;display:flex;align-items:flex-end;gap:7px;padding-top:8px}.barwrap{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px}.bar{width:70%;max-width:32px;border-radius:8px 8px 3px 3px;background:var(--accent);min-height:3px}.barlabel{font-size:9px;color:var(--muted)}.emptybar{background:#e8e6df}
+.record{padding:13px 0;border-bottom:1px solid var(--line)}.record:last-child{border-bottom:0}.recordTitle{font-weight:850}.badge{font-size:10px;font-weight:850;background:var(--accentSoft);color:var(--accent);border-radius:999px;padding:4px 7px}.badge.warm{background:var(--warmSoft);color:var(--warm)}.badge.gray{background:#eceae3;color:var(--muted)}
+.overlay{position:fixed;z-index:30;inset:0;display:none;background:rgba(22,27,23,.52);align-items:flex-end;justify-content:center}.overlay.show{display:flex}.sheet{width:min(780px,100%);max-height:94vh;overflow:auto;background:var(--bg);border-radius:26px 26px 0 0;padding:0 16px calc(24px + env(safe-area-inset-bottom));box-shadow:0 -18px 60px rgba(0,0,0,.16)}.sheetHead{position:sticky;top:0;background:var(--bg);z-index:2;padding:18px 0 10px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.step{font-size:11px;color:var(--muted);font-weight:900;letter-spacing:.06em}.sheetTitle{font-size:20px;font-weight:900;margin-top:2px}.factgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.factbox{border:1px solid var(--line);background:white;padding:12px;border-radius:14px;min-height:90px}.timer{font-weight:950;font-size:52px;text-align:center;padding:15px 0}.timerSub{text-align:center;color:var(--muted);font-size:13px}.principle{padding:14px 0;border-bottom:1px solid var(--line);font-size:16px;line-height:1.65}.principle b{display:block;margin-bottom:3px}.principle:last-child{border-bottom:0}.hidden{display:none!important}.toast{position:fixed;z-index:60;left:50%;bottom:92px;transform:translateX(-50%) translateY(12px);background:#202b25;color:white;padding:10px 14px;border-radius:12px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;max-width:calc(100vw - 32px)}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.settingsRow{padding:13px 0;border-bottom:1px solid var(--line)}.settingsRow:last-child{border-bottom:0}.settingsRow .label{font-weight:850}.settingsRow .desc{font-size:12px;color:var(--muted);margin:3px 0 9px}.fileLabel{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:14px;padding:11px 13px;font-weight:800;background:transparent}.fileLabel input{display:none}
+@media(min-width:640px){.grid4{grid-template-columns:repeat(4,1fr)}.checkChoice{grid-template-columns:1fr 1fr}.app{padding-left:20px;padding-right:20px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+ <header class="top">
+  <div class="brand">Stoic 30<small>我的 30 天安全感練習</small></div>
+  <div class="pill" id="dayPill">Day 1 / 30</div>
+ </header>
+ <main>
+  <section id="today" class="screen active">
+   <div class="card hero"><div class="eyebrow" id="todayEyebrow">今日提醒</div><div class="quote" id="dailyQuote"></div></div>
+   <div id="activeDelayCard" class="card hidden"></div>
+   <div class="card">
+    <div class="task"><div class="taskIcon">☀️</div><div class="taskBody"><div class="row between"><div class="taskTitle">早晨練習</div><span id="morningStatus" class="badge gray">未完成</span></div><div class="taskMeta">控制圈＋預想逆境 · 約 2–3 分鐘</div><div style="height:10px"></div><button class="btn secondary block" onclick="openMorning()">開始 / 編輯</button></div></div>
+   </div>
+   <div class="card">
+    <div class="task"><div class="taskIcon">🆘</div><div class="taskBody"><div class="taskTitle">我現在開始患得患失</div><div class="taskMeta">把事實、解讀與可控行動重新分開</div><div style="height:10px"></div><button class="btn primary big block" onclick="startPanic()">開始 90 秒練習</button></div></div>
+   </div>
+   <div class="card">
+    <div class="task"><div class="taskIcon">🌙</div><div class="taskBody"><div class="row between"><div class="taskTitle">晚間回顧</div><span id="eveningStatus" class="badge gray">未完成</span></div><div class="taskMeta">不檢討結果，只檢視反應與行動 · 約 5 分鐘</div><div style="height:10px"></div><button class="btn secondary block" onclick="openEvening()">開始 / 編輯</button></div></div>
+   </div>
+   <div class="card"><div class="row between"><h2>今天的狀態</h2><button class="linkbtn" onclick="go('records')">查看紀錄</button></div><div class="grid4" style="margin-top:12px">
+    <div class="mini"><div class="n" id="todayAnxiety">0</div><div class="k">焦慮事件</div></div><div class="mini"><div class="n" id="todayDelay">0</div><div class="k">成功延遲</div></div><div class="mini"><div class="n" id="todayCheck">0</div><div class="k">仍去確認</div></div><div class="mini"><div class="n" id="todayRecovery">—</div><div class="k">平均恢復分鐘</div></div>
+   </div></div>
+  </section>
+
+  <section id="progress" class="screen">
+   <div class="card"><div class="row between"><h2>30 天進度</h2><span id="progressText" class="badge">Day 1</span></div><div class="progressTrack" style="margin-top:13px"><span id="progressBar" style="width:3%"></span></div><div class="weekline" id="weekDots"></div><p id="completionCopy"></p></div>
+   <div class="card"><div class="row between"><h2>本週 vs 上週</h2><span class="muted" style="font-size:11px">最近 7 天</span></div><div class="grid4" style="margin-top:12px">
+    <div class="mini"><div class="n" id="weekAnxiety">0</div><div class="k">焦慮次數</div><div class="delta" id="deltaAnxiety"></div></div>
+    <div class="mini"><div class="n" id="weekCheck">0</div><div class="k">仍去確認</div><div class="delta" id="deltaCheck"></div></div>
+    <div class="mini"><div class="n" id="weekDelayRate">—</div><div class="k">延遲成功率</div><div class="delta" id="deltaDelay"></div></div>
+    <div class="mini"><div class="n" id="weekRecovery">—</div><div class="k">平均恢復分鐘</div><div class="delta" id="deltaRecovery"></div></div>
+   </div><div class="hint" id="trendMessage">資料累積後，這裡會優先看「恢復得更快」而不是要求焦慮歸零。</div></div>
+   <div class="card"><h2>恢復平靜所需時間</h2><p>越短通常代表你更能在焦慮出現後回到自己的生活。</p><div class="chart" id="recoveryChart"></div></div>
+  </section>
+
+  <section id="records" class="screen">
+   <div class="card"><div class="row between"><h2>焦慮事件紀錄</h2><span class="muted" style="font-size:11px">可修改或刪除</span></div><div id="anxietyList"><p>尚無紀錄
