@@ -1,7 +1,7 @@
 {
   "name": "Stoic 30｜我的安全感練習",
   "short_name": "Stoic 30",
-  "description": "個人用 30 天斯多葛安全感練習",
+  "description": "個人用 30 天安全感與不確定性練習",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
