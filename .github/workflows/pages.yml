@@ -33,10 +33,10 @@ jobs:
           from pathlib import Path
           p = Path('_site/index.html')
           s = p.read_text(encoding='utf-8')
-          s = s.replace('</body></html>', '<script src="./neutral-v3.js"></script>\n</body></html>')
+          s = s.replace('</body></html>', '<script src="./neutral-v3.js"></script>\n<script src="./decision-os.js"></script>\n</body></html>')
           p.write_text(s, encoding='utf-8')
           PY
-          cp manifest.webmanifest service-worker.js icon.svg neutral-v3.js _site/
+          cp manifest.webmanifest service-worker.js icon.svg neutral-v3.js decision-os.js _site/
           touch _site/.nojekyll
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
