@@ -1,0 +1,32 @@
+name: Decision OS checks
+
+on:
+  pull_request:
+    paths:
+      - 'decision-os*.js'
+      - 'neutral-v3.js'
+      - 'tests/**'
+      - '.github/workflows/decision-os-checks.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'decision-os*.js'
+      - 'neutral-v3.js'
+      - 'tests/**'
+      - '.github/workflows/decision-os-checks.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  decision-os:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: JavaScript syntax check
+        run: |
+          node --check neutral-v3.js
+          node --check decision-os.js
+          node --check decision-os-v3.js
+      - name: Decision OS V3 smoke tests
+        run: node tests/decision-os-v3-smoke.mjs
