@@ -6,6 +6,19 @@
 
 **事件 → 事實 → 推測 → 控制範圍 → 下一步 → 等待 → Review → Reality Feedback**
 
+## Decision OS V3：Universal Inbox + Project Focus
+- Universal Inbox：想到任務、點子、研究主題時先快速記錄，不必立即分類
+- Inbox 項目可直接轉成 Decision；只有成功建立 Decision 後才會從 Inbox 移除
+- 專案類 Decision 新增 Project Stage：
+  - `Active`：現在真正推進
+  - `Backlog`：保留但不開始
+  - `Frozen`：暫停，不佔 Active 名額
+- Active Project Limit 預設為 **2**
+- 第 3 個 Active 專案會被阻止儲存，必須先把其他專案移回 Backlog / Frozen
+- 已完成的 Active 專案不佔名額；重新開啟時仍會重新檢查上限
+- V3 延伸資料使用 `decisionos.v3` 保存，不改寫既有 `decisionos.v1` Decision 資料
+- 完整 JSON 備份會包含 Universal Inbox 與 Project Stage 資料
+
 ## Decision OS V2
 - 首頁只顯示真正需要處理的事項：需要行動與已到期 Review
 - Waiting Room：等待中的事情在 Review 日期前不進入首頁焦點
@@ -50,8 +63,9 @@
 ## 資料與相容性
 - Stoic 30 舊資料：`stoic30.v2`
 - Decision OS：`decisionos.v1`
+- Decision OS V3 延伸資料：`decisionos.v3`
 
-Decision OS 會在原 storage key 上做向前相容的資料正規化，不覆蓋既有 Stoic 30 紀錄。
+Decision OS 會在原 storage key 上做向前相容的資料正規化，不覆蓋既有 Stoic 30 紀錄。V3 的 Inbox 與 Project Stage 另外保存，避免改動既有 Decision schema。
 
 完整備份格式：
 
@@ -59,7 +73,8 @@ Decision OS 會在原 storage key 上做向前相容的資料正規化，不覆�
 {
   "format": "stoic30-decisionos-backup",
   "stoic30": {},
-  "decisionOS": {}
+  "decisionOS": {},
+  "decisionOSV3": {}
 }
 ```
 
